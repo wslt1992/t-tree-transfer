@@ -37,23 +37,7 @@ export default {
       props: {
         label: 'name',
         isLeaf: this.isLeaf
-      },
-      ruleLists: [],
-      checkLoading: false,
-      requestLoading: false,
-      islimitedPass: 0, // 0表示无限次数
-      islimitedTimes: 0,
-      checkedCycleId: null,
-      formData: {
-        cycleId: null,
-        passNumber: 1,
-        timeArr: []
-      },
-      // -------start---------- //
-      defaultProps: {
-        label: 'name'
       }
-      // -------end---------- //
     }
   },
   props: {
@@ -62,7 +46,6 @@ export default {
       default: () => []
     }
   },
-  watch: {},
   created () {
   },
   mounted () {
@@ -74,18 +57,17 @@ export default {
         setTimeout(() => {
           if (node.level === 0) {
             resolve(node.data)
-            this.$refs['from-tree-person'].filter('')
-            this.$refs['to-tree-person'].filter('')
+            this.initTree()
           } else {
             resolve(node.data.children)
-            this.$refs['from-tree-person'].filter('')
-            this.$refs['to-tree-person'].filter('')
+            this.initTree()
           }
-        }, 1)
+        }, 10)
       },
       isLeaf (data, node) {
         return data.id !== data.group_id
       },
+      // 数据变动后，过滤数据。根据过滤函数‘filterPersonName’和‘fanxiangfilterPersonName’返回值，确定左右两个树的节点 显示还是隐藏
       initTree () {
         this.$refs['from-tree-person'].filter('')
         this.$refs['to-tree-person'].filter('')
@@ -153,7 +135,6 @@ export default {
         return data.name.indexOf(value) !== -1
       },
 
-      /******************other start*******************/
       // 选中全部子
       checkedAllChildren (arr) {
         if (arr) {
@@ -176,11 +157,15 @@ export default {
           })
         }
       },
+      // 是否是group
       isGroup (item) {
         return item.id === item.group_id
       },
       addToAimsPerson2 () {
-        let checkedNodes = this.$refs['from-tree-person'].getCheckedNodes(false, true)
+        // element-ui:4.4.1写法
+        // let checkedNodes = this.$refs['from-tree-person'].getCheckedNodes(false, true)
+        //element-ui:4.9.2写法
+        let checkedNodes = this.$refs['from-tree-person'].getCheckedNodes(false, false)
         checkedNodes.forEach(item => {
           this.invisiableNode(item)
           if (this.isGroup(item)) {
@@ -191,18 +176,32 @@ export default {
         halfCheckedNodes.forEach(item => {
           this.halfInvisiableNode(item)
         })
-        this.$refs['from-tree-person'].filter('')
-        this.$refs['to-tree-person'].filter('')
+        this.initTree()
+        this.changeCheckedKeys()
       },
+      // 左侧半选节点隐藏，实际不会隐藏，但是右侧的tree会显示半选节点
       halfInvisiableNode (item) {
         this.$set(item, 'isHalfDisabled', true)
       },
       // 禁用节点，
+      // 左侧隐藏选取的节点
       invisiableNode (item) {
         this.$set(item, 'isDisabled', true)
       },
+
+      // 左侧显示某节点，
+      visiableNode (item) {
+        this.$set(item, 'isDisabled', false)
+      },
+      // 左侧显示某半选节点，
+      halfVisiableNode (item) {
+        this.$set(item, 'isHalfDisabled', false)
+      },
       removePerson2 () {
-        let checkedNodes = this.$refs['to-tree-person'].getCheckedNodes(false, true)
+        // element-ui:4.4.1写法
+        // let checkedNodes = this.$refs['to-tree-person'].getCheckedNodes(false, true)
+        //element-ui:4.9.2写法
+        let checkedNodes = this.$refs['to-tree-person'].getCheckedNodes(false, false)
         checkedNodes.forEach(item => {
           this.visiableNode(item)
           // 如果是组，全选和半选 标记 都关闭
@@ -211,19 +210,14 @@ export default {
             this.NotcheckedAllChildren(item.children)
           }
         })
-        this.$refs['from-tree-person'].filter('')
-        this.$refs['to-tree-person'].filter('')
+        //半选节点关闭//element-ui:4.9.2写法
+        let halfCheckedNodes = this.$refs['to-tree-person'].getHalfCheckedNodes()
+        halfCheckedNodes.forEach(item => {
+          this.halfVisiableNode(item)
+        })
+        this.initTree()
+        this.changeCheckedKeys()
       },
-      // 禁用节点，
-      visiableNode (item) {
-        this.$set(item, 'isDisabled', false)
-      },
-      // 禁用节点，
-      halfVisiableNode (item) {
-        this.$set(item, 'isHalfDisabled', false)
-      },
-
-      // 移除按钮
 
       //对树完成全选/ 全不选
       checkedOrNotAllData (tree, val) {
@@ -231,22 +225,23 @@ export default {
           tree.setChecked(item, val, true)
         })
       },
+      // 左侧数据 全选或全不选
       fromAllBoxChangePerson2 (val) {
-        this.checkLoading = true
         this.checkedOrNotAllData(this.$refs['from-tree-person'], val)
-        this.checkLoading = false
       },
-      // 目标数据 总全选checkbox
+      // 右侧侧数据 全选或全不选
       toAllBoxChangePerson2 (val) {
-        this.checkLoading = true
         this.checkedOrNotAllData(this.$refs['to-tree-person'], val)
-        this.checkLoading = false
       },
+      //向父返回选中keys
+      changeCheckedKeys(){
+        this.$emit('changeCheckedKeys',this.findAllCheckedPersonsID())
+      }
     },
     watch: {
-      personName (val) {
-        this.$refs['from-tree-person'].filter(val)
-      },
+      personFromData(){
+
+      }
     }
   }
 </script>
