@@ -202,7 +202,7 @@ export default {
         this.$set(item, 'isDisabled', true)
       },
       removePerson2 () {
-        let checkedNodes = this.$refs['to-tree-person'].getCheckedNodes(false, true)
+        let checkedNodes = this.$refs['to-tree-person'].getCheckedNodes()
         checkedNodes.forEach(item => {
           this.visiableNode(item)
           // 如果是组，全选和半选 标记 都关闭
