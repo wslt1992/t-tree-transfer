@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <TurboTreeTransfer :personFromData = 'data'/>
+    <TurboTreeTransfer :personFromData = 'data' @changeCheckedKeys="changeCheckedKeys"/>
   </div>
 </template>
 
@@ -17,6 +17,11 @@ export default {
   },
   components: {
     TurboTreeTransfer
+  },
+  methods: {
+    changeCheckedKeys (keys) {
+      console.log(keys)
+    }
   }
 }
 </script>
