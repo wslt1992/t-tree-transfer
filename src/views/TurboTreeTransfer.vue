@@ -180,7 +180,7 @@ export default {
         return item.id === item.group_id
       },
       addToAimsPerson2 () {
-        let checkedNodes = this.$refs['from-tree-person'].getCheckedNodes(false, true)
+        let checkedNodes = this.$refs['from-tree-person'].getCheckedNodes()
         checkedNodes.forEach(item => {
           this.invisiableNode(item)
           if (this.isGroup(item)) {
