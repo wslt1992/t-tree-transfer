@@ -37,23 +37,7 @@ export default {
       props: {
         label: 'name',
         isLeaf: this.isLeaf
-      },
-      ruleLists: [],
-      checkLoading: false,
-      requestLoading: false,
-      islimitedPass: 0, // 0表示无限次数
-      islimitedTimes: 0,
-      checkedCycleId: null,
-      formData: {
-        cycleId: null,
-        passNumber: 1,
-        timeArr: []
-      },
-      // -------start---------- //
-      defaultProps: {
-        label: 'name'
       }
-      // -------end---------- //
     }
   },
   props: {
@@ -74,12 +58,10 @@ export default {
         setTimeout(() => {
           if (node.level === 0) {
             resolve(node.data)
-            this.$refs['from-tree-person'].filter('')
-            this.$refs['to-tree-person'].filter('')
+            this.initTree()
           } else {
             resolve(node.data.children)
-            this.$refs['from-tree-person'].filter('')
-            this.$refs['to-tree-person'].filter('')
+            this.initTree()
           }
         }, 1)
       },
@@ -191,8 +173,11 @@ export default {
         halfCheckedNodes.forEach(item => {
           this.halfInvisiableNode(item)
         })
-        this.$refs['from-tree-person'].filter('')
-        this.$refs['to-tree-person'].filter('')
+        this.initTree()
+        this.emitToParentChangeCheckedData()
+      },
+      emitToParentChangeCheckedData(){
+        this.$emit('changeCheckedKeys',this.findAllCheckedPersonsID())
       },
       halfInvisiableNode (item) {
         this.$set(item, 'isHalfDisabled', true)
@@ -211,8 +196,8 @@ export default {
             this.NotcheckedAllChildren(item.children)
           }
         })
-        this.$refs['from-tree-person'].filter('')
-        this.$refs['to-tree-person'].filter('')
+        this.initTree()
+        this.emitToParentChangeCheckedData('changeCheckedKeys',this.findAllCheckedPersonsID())
       },
       // 禁用节点，
       visiableNode (item) {
@@ -231,21 +216,13 @@ export default {
           tree.setChecked(item, val, true)
         })
       },
+      // 左侧 全选或全不选checkbox
       fromAllBoxChangePerson2 (val) {
-        this.checkLoading = true
         this.checkedOrNotAllData(this.$refs['from-tree-person'], val)
-        this.checkLoading = false
       },
-      // 目标数据 总全选checkbox
+      // 右侧 全选或全不选checkbox
       toAllBoxChangePerson2 (val) {
-        this.checkLoading = true
         this.checkedOrNotAllData(this.$refs['to-tree-person'], val)
-        this.checkLoading = false
-      },
-    },
-    watch: {
-      personName (val) {
-        this.$refs['from-tree-person'].filter(val)
       },
     }
   }

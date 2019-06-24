@@ -1,6 +1,8 @@
 <template>
   <div class="home">
     <TurboTreeTransfer :personFromData = 'data' @changeCheckedKeys="changeCheckedKeys"/>
+    <br/>
+    <div>{{keys}}</div>
   </div>
 </template>
 
@@ -12,7 +14,8 @@ export default {
   name: 'home',
   data () {
     return {
-      data: JSON.parse(data).data.group
+      data: JSON.parse(data).data.group,
+      keys: []
     }
   },
   components: {
@@ -20,7 +23,7 @@ export default {
   },
   methods: {
     changeCheckedKeys (keys) {
-      console.log(keys)
+      this.keys = keys
     }
   }
 }
