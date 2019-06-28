@@ -1,7 +1,7 @@
 <template>
-  <div class="root">
-    <div class="left">
-      <el-checkbox @change='fromAllBoxChangePerson2'></el-checkbox>
+  <div class="root" :style="`height:${height}`">
+    <div class="left" :style="`height:${height}`">
+      <el-checkbox @change='fromAllBoxChangePerson2'>全选</el-checkbox>
       <el-tree
         lazy
         :load="loadNode1"
@@ -10,15 +10,15 @@
       </el-tree>
     </div>
     <div class="center">
-      <el-button type="primary" @click="addToAimsPerson2" icon="el-icon-arrow-right">添加
-      </el-button>
-      <!--                  <el-button type="primary" @click='removePerson2' :disabled="to_disabled_person" icon="el-icon-arrow-left">{{$t("txt_item_291")}}-->
-      <el-button type="primary" @click='removePerson2' icon="el-icon-arrow-left">删除
-      </el-button>
+      <div>
+        <el-button type="primary" @click="addToAimsPerson2" icon="el-icon-arrow-right">添加</el-button>
+      </div>
+      <div>
+        <el-button type="primary" @click='removePerson2' icon="el-icon-arrow-left">删除</el-button>
+      </div>
     </div>
-    <div class="right">
-      <el-checkbox
-        @change="toAllBoxChangePerson2"></el-checkbox>
+    <div class="right" :style="`height:${height}`">
+      <el-checkbox @change="toAllBoxChangePerson2">全选</el-checkbox>
       <el-tree
         :load="loadNode1" lazy :props="props"
         :filter-node-method="fanxiangfilterPersonName"
@@ -44,6 +44,10 @@ export default {
     personFromData: {
       type: Array,
       default: () => []
+    },
+    height: {
+      type: String,
+      default: '500px'
     }
   },
   watch: {},
@@ -231,8 +235,18 @@ export default {
 <style lang='scss' scoped>
   .root {
     display: flex;
+    overflow-y: scroll;
     .left,.right{
+      text-align: left;
       width: 300px;
+      overflow-y: auto;
     }
+  }
+  .center{
+    height: 100px;
+    margin: auto 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 </style>

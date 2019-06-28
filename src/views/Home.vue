@@ -9,6 +9,7 @@
 <script>
 // @ is an alias to /src
 import TurboTreeTransfer from '@/views/TurboTreeTransfer'
+// import TurboTreeTransfer from 't-tree-transfer/src/index.js'
 import data from '@/views/data'
 export default {
   name: 'home',

@@ -7885,6 +7885,17 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+t-tree-transfer@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/t-tree-transfer/-/t-tree-transfer-0.1.0.tgz#6fe37ded6b2c8b6069f6253d8010b7710b1112c4"
+  integrity sha512-s993tMgJ5in4rRRReLNGk/m7AFr66IrZvmIXRjEWUfjTQ4aapFwNMwekG3o146Z/BWQKO0I3p4McBsETK//2nw==
+  dependencies:
+    core-js "^2.6.5"
+    element-ui "^2.9.2"
+    vue "^2.6.10"
+    vue-router "^3.0.3"
+    vuex "^3.0.1"
+
 table@4.0.2:
   version "4.0.2"
   resolved "https://registry.npm.taobao.org/table/download/table-4.0.2.tgz#a33447375391e766ad34d3486e6e2aedc84d2e36"
