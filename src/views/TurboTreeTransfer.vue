@@ -133,8 +133,12 @@ export default {
       initData2 () {
         this.resetPersonData(this.fromData)
         this.initTree()
+        this.emitToParentChangeCheckedDataNull()
       },
-
+      //清除选中的数据
+      emitToParentChangeCheckedDataNull(){
+        this.$emit('changeCheckedKeys',[])
+      },
       // input筛选人员名，反向过滤，被禁用的条件都过滤
       fanxiangfilterPersonName (value, data) {
         if (data.isDisabled || data.isHalfDisabled) {
