@@ -41,7 +41,7 @@ export default {
     }
   },
   props: {
-    personFromData: {
+    fromData: {
       type: Array,
       default: () => []
     },

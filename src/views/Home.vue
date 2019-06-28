@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <TurboTreeTransfer :personFromData = 'data' @changeCheckedKeys="changeCheckedKeys"/>
+    <TurboTreeTransfer :fromData = 'data' @changeCheckedKeys="changeCheckedKeys"/>
     <br/>
     <div>{{keys}}</div>
   </div>
@@ -8,8 +8,8 @@
 
 <script>
 // @ is an alias to /src
-import TurboTreeTransfer from '@/views/TurboTreeTransfer'
-// import TurboTreeTransfer from 't-tree-transfer/src/index.js'
+// import TurboTreeTransfer from '@/views/TurboTreeTransfer'
+import TurboTreeTransfer from 't-tree-transfer'
 import data from '@/views/data'
 export default {
   name: 'home',

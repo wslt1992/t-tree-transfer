@@ -7896,6 +7896,30 @@ t-tree-transfer@^0.1.0:
     vue-router "^3.0.3"
     vuex "^3.0.1"
 
+t-tree-transfer@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/t-tree-transfer/-/t-tree-transfer-0.1.1.tgz#6aa3d5a988e50fdd077a3c9088cf9c3baf69e732"
+  integrity sha512-kgLY83ezpz7J2tIXX8lDgW/WwyvWInz3p2s+nUIvdDLfmqMYsgUx6tzk0OvHy4DebAsfV670zi2LJTs9TyS1Qg==
+  dependencies:
+    core-js "^2.6.5"
+    element-ui "^2.9.2"
+    t-tree-transfer "^0.1.0"
+    vue "^2.6.10"
+    vue-router "^3.0.3"
+    vuex "^3.0.1"
+
+t-tree-transfer@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/t-tree-transfer/-/t-tree-transfer-0.1.2.tgz#b206aca0fd3262a3ac95a72e7b8b9fb667099e6d"
+  integrity sha512-vWbG8zHXVaKh7Wl9Dvu8soMZUlXy7HIS0Lhf1oB4o7mcJnK42Rpm1CqAY0DM8Mrsw1yIY3h8GWn7p8+AogXD2g==
+  dependencies:
+    core-js "^2.6.5"
+    element-ui "^2.9.2"
+    t-tree-transfer "^0.1.1"
+    vue "^2.6.10"
+    vue-router "^3.0.3"
+    vuex "^3.0.1"
+
 table@4.0.2:
   version "4.0.2"
   resolved "https://registry.npm.taobao.org/table/download/table-4.0.2.tgz#a33447375391e766ad34d3486e6e2aedc84d2e36"
