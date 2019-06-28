@@ -1,7 +1,7 @@
 <template>
   <div class="root" :style="`height:${height+100}`">
     <div class="left" :style="`height:${height}`">
-      <h3 v-if="titles.length!==0">{{titles[0]}}</h3>
+      <h5 v-if="titles.length!==0">{{titles[0]}}</h5>
       <div class="left-main">
         <el-checkbox @change='fromAllBoxChangePerson2'>全选</el-checkbox>
         <el-tree
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="right" :style="`height:${height}`">
-      <h3 v-if="titles.length!==0">{{titles[1]}}</h3>
+      <h5 v-if="titles.length!==0">{{titles[1]}}</h5>
       <div class="right-main">
         <el-checkbox @change="toAllBoxChangePerson2">全选</el-checkbox>
         <el-tree
@@ -257,8 +257,9 @@ export default {
     }
   }
   .left,.right{
-    border: 1px solid #eeeeee;
+    border: 1px solid #bbbbbb;
     border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
   }
   .center{
     height: 100px;
@@ -267,14 +268,16 @@ export default {
     flex-direction: column;
     justify-content: space-between;
   }
-  h3{
+  h5{
     text-align: center;
     height:2.0em;
     line-height: 2.0em;
+    font-size: 20px;
+    font-weight: 300;
     padding: 0;
     margin: 0;
-    color: #333;
-    background: #f5f7fa;
+    color: #ffffff;
+    background: #399d6c;
   }
   .left-main, .right-main{
     padding: 10px;
