@@ -8,8 +8,8 @@
 
 <script>
 // @ is an alias to /src
-// import TurboTreeTransfer from '@/views/TurboTreeTransfer'
-import TurboTreeTransfer from 't-tree-transfer'
+import TurboTreeTransfer from '@/views/TurboTreeTransfer'
+// import TurboTreeTransfer from 't-tree-transfer'
 import data from '@/views/data'
 export default {
   name: 'home',

@@ -1,13 +1,16 @@
 <template>
-  <div class="root" :style="`height:${height}`">
+  <div class="root" :style="`height:${height+100}`">
     <div class="left" :style="`height:${height}`">
-      <el-checkbox @change='fromAllBoxChangePerson2'>全选</el-checkbox>
-      <el-tree
-        lazy
-        :load="loadNode1"
-        ref='from-tree-person' :props="props" accordion :filter-node-method="filterPersonName" node-expand
-        :data="personFromData" show-checkbox node-key="id">
-      </el-tree>
+      <h3 v-if="titles.length!==0">{{titles[0]}}</h3>
+      <div class="left-main">
+        <el-checkbox @change='fromAllBoxChangePerson2'>全选</el-checkbox>
+        <el-tree
+          lazy
+          :load="loadNode1"
+          ref='from-tree-person' :props="props" accordion :filter-node-method="filterPersonName" node-expand
+          :data="fromData" show-checkbox node-key="id">
+        </el-tree>
+      </div>
     </div>
     <div class="center">
       <div>
@@ -18,12 +21,15 @@
       </div>
     </div>
     <div class="right" :style="`height:${height}`">
-      <el-checkbox @change="toAllBoxChangePerson2">全选</el-checkbox>
-      <el-tree
-        :load="loadNode1" lazy :props="props"
-        :filter-node-method="fanxiangfilterPersonName"
-        slot='to' ref='to-tree-person' :data="personFromData" show-checkbox node-key="id">
-      </el-tree>
+      <h3 v-if="titles.length!==0">{{titles[1]}}</h3>
+      <div class="right-main">
+        <el-checkbox @change="toAllBoxChangePerson2">全选</el-checkbox>
+        <el-tree
+          :load="loadNode1" lazy :props="props"
+          :filter-node-method="fanxiangfilterPersonName"
+          slot='to' ref='to-tree-person' :data="fromData" show-checkbox node-key="id">
+        </el-tree>
+      </div>
     </div>
   </div>
 </template>
@@ -48,6 +54,10 @@ export default {
     height: {
       type: String,
       default: '500px'
+    },
+    titles: {
+      type: Array,
+      default: () => ['源数据', '结果']
     }
   },
   watch: {},
@@ -103,7 +113,7 @@ export default {
       findAllCheckedPersonsID () {
         let checkedPersonIDs = []
         let checkedGroupIDs = []
-        this.getCheckedData(checkedPersonIDs, checkedGroupIDs, this.personFromData)
+        this.getCheckedData(checkedPersonIDs, checkedGroupIDs, this.fromData)
         checkedPersonIDs = _.join(checkedPersonIDs, ',')
         return checkedPersonIDs
       },
@@ -121,7 +131,7 @@ export default {
       },
       // 人员树重置
       initData2 () {
-        this.resetPersonData(this.personFromData)
+        this.resetPersonData(this.fromData)
         this.initTree()
       },
 
@@ -216,7 +226,7 @@ export default {
 
       //对树完成全选/ 全不选
       checkedOrNotAllData (tree, val) {
-        this.personFromData.forEach(item => {
+        this.fromData.forEach(item => {
           tree.setChecked(item, val, true)
         })
       },
@@ -235,12 +245,16 @@ export default {
 <style lang='scss' scoped>
   .root {
     display: flex;
-    overflow-y: scroll;
+    overflow-y: auto;
     .left,.right{
       text-align: left;
       width: 300px;
       overflow-y: auto;
     }
+  }
+  .left,.right{
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
   }
   .center{
     height: 100px;
@@ -248,5 +262,17 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+  h3{
+    text-align: center;
+    height:2.0em;
+    line-height: 2.0em;
+    padding: 0;
+    margin: 0;
+    color: #333;
+    background: #f5f7fa;
+  }
+  .left-main, .right-main{
+    padding: 10px;
   }
 </style>
